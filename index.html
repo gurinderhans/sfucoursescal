@@ -7,8 +7,9 @@
     <link href='fullcalendar.print.css' rel='stylesheet' media='print' />
     <script src='lib/moment.min.js'></script>
     <script src='fullcalendar.min.js'></script>
-    <script src="calendar.min.js"></script><!---->
-    <script src="parser.min.js"></script><!---->
+    <script src="calendar.min.js"></script>
+    <script src="parser.min.js"></script>
+    <script src="html2canvas.js"></script>
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,500,700' rel='stylesheet' type='text/css'>
     <link href='main.min.css' rel='stylesheet' />
   </head>
@@ -16,13 +17,28 @@
     <div id="wrapper">
       <div id="formArea">
         <form>
-          <textarea id="coursesInput" placeholder="Hold 'i' for instructions. Paste here..."></textarea>
+          <textarea id="coursesInput" placeholder="Paste schedule here..."></textarea>
+          <div id="howto">
+            <ul>
+              <li>Hold 'i' for instructions.</li>
+              <li>Press 'j' for screenshot.</li>
+              <li>Hold 'n' for notes.</li>
+            </ul>
+          </div>
         </form>
       </div>
       <div id="calendar"></div>
     </div>
     <div id="instructions">
       <img src="instructions.jpg" />
+    </div>
+    <div id="notesWrapper">
+      <div id="notes">
+        <li>For screenshots:</li>
+        <ul><li>(Need to enable popup for this page)</li><li>Not working properly in Firefox</li></ul>
+        <li>Ubuntu adds extra spacing in the text so it doesn't work.</li>
+        <li>Windows and OS X work perfectly</li>
+      </div>
     </div>
   </body>
 </html>

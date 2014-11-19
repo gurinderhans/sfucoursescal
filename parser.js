@@ -81,8 +81,14 @@ $(document).ready(function(){
             var startTime = parsedTimes[j][1];
             var endTime = parsedTimes[j][3];
 
-            startTime = moment(startTime, "HH:mmA");
-            endTime = moment(endTime, "HH:mmA");
+            if(strContains("m",startTime.toLowerCase())){
+              startTime = moment(startTime, "HH:mmA");
+              endTime = moment(endTime, "HH:mmA");
+            } else{
+              startTime = moment(startTime, "HH:mm");
+              endTime = moment(endTime, "HH:mm");
+            }
+
             startTime = startTime.format("HH:mm:ss");
             endTime = endTime.format("HH:mm:ss");
 
@@ -101,6 +107,7 @@ $(document).ready(function(){
       var schema = arrayCourses[1];
       $("#calendar").fullCalendar('removeEvents');
       parseClasses(arrayCourses);
+      $("#formArea textarea").blur();
     }, 300);
   });
 
@@ -111,6 +118,30 @@ $(document).ready(function(){
   }).keyup(function(evt) {
     if (evt.which == 73) { // 'i'
       $("#instructions").hide();
+    }
+  });
+  
+  $(window).keydown(function(evt) {
+    if (evt.which == 78) { // 'n'
+      $("#notesWrapper").show();
+    }
+  }).keyup(function(evt) {
+    if (evt.which == 78) { // 'n'
+      $("#notesWrapper").hide();
+    }
+  });
+
+  //screenshot
+  $(window).keydown(function(evt) {
+    if (evt.which == 74) {} // j
+  }).keyup(function(evt) {
+    if (evt.which == 74) { // 'j'
+      html2canvas(document.getElementById("calendar"), {
+        onrendered: function(canvas) {
+          var myImage = canvas.toDataURL("image/png");
+          window.open(myImage);
+        }
+      });
     }
   });
 });

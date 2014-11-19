@@ -103,4 +103,14 @@ $(document).ready(function(){
       parseClasses(arrayCourses);
     }, 300);
   });
+
+  $(window).keydown(function(evt) {
+    if (evt.which == 73) { // 'i'
+      $("#instructions").show();
+    }
+  }).keyup(function(evt) {
+    if (evt.which == 73) { // 'i'
+      $("#instructions").hide();
+    }
+  });
 });

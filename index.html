@@ -7,16 +7,19 @@
     <link href='fullcalendar.print.css' rel='stylesheet' media='print' />
     <script src='lib/moment.min.js'></script>
     <script src='fullcalendar.min.js'></script>
-    <script src="calendar.min.js"></script>
-    <script src="parser.min.js"></script>
+    <script src="calendar.js"></script>
+    <script src="parser.js"></script>
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,500,700' rel='stylesheet' type='text/css'>
+    <link href='main.min.css' rel='stylesheet' />
   </head>
   <body>
-    <div id="input_form_wrapper" style="width:500px;">
-      <form action>
-        <textarea id="coursesInput" style="width:85%; height:200px;"></textarea>
-        <input type="submit" val="View Calendar" id="viewCal" />
-      </form>
+    <div id="wrapper">
+      <div id="formArea">
+        <form>
+          <textarea id="coursesInput" placeholder="Paste here..."></textarea>
+        </form>
+      </div>
+      <div id="calendar"></div>
     </div>
-    <div id="calendar"></div>
   </body>
 </html>

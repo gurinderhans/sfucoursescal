@@ -92,14 +92,15 @@ $(document).ready(function(){
       }
     }
   }
-
-  $("#viewCal").click(function(e){
-    e.preventDefault();
-    var coursesInput = $("#coursesInput").val();
-    var arrayCourses = coursesInput.split("\n");
-    var coursesTime = arrayCourses[0];
-    var schema = arrayCourses[1];
-    $("#calendar").fullCalendar('removeEvents');
-    parseClasses(arrayCourses);
+  $('#coursesInput').on('paste', function () {
+    $(this).css("font-size","12px");
+    setTimeout(function () {
+      var coursesInput = $("#coursesInput").val();
+      var arrayCourses = coursesInput.split("\n");
+      var coursesTime = arrayCourses[0];
+      var schema = arrayCourses[1];
+      $("#calendar").fullCalendar('removeEvents');
+      parseClasses(arrayCourses);
+    }, 300);
   });
 });

@@ -2,7 +2,7 @@ $(document).ready(function(){
   $('#calendar').fullCalendar({
     defaultView: 'agendaWeek',
     allDaySlot: false,
-    height: 750,
+    height: 700,
     weekends:false,
     columnFormat: {
       week: 'dddd'

@@ -4,4 +4,4 @@ SFU Courses Calendar
 A simple text parser that takes it's input as the copied courses text from the SFU
 courses enrollment site and displays them in a calendar view
 
-[projects.gurinderhans.me/sfucc](www.projects.gurinderhans.me/sfucc)
+[projects.gurinderhans.me/sfucc](http://projects.gurinderhans.me/sfucc)

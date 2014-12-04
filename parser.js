@@ -171,8 +171,7 @@ $(document).ready(function(){
       var coursesInput = $("#coursesInput").val();
       $("#calendar").fullCalendar('removeEvents');
       parseClasses(coursesInput);
-
-      // $("#formArea textarea").blur();
+      $("#coursesInput").blur();
     }, 300);
   });
 

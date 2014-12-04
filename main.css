@@ -1,27 +1,36 @@
 html,body{font-family: 'Roboto', sans-serif;}
 #calendar{
-  width:78%;
-  float:right;
-  position: relative;
+  width:95%;
   z-index:-1;
   background-color:#fff;
+  margin: 0 auto;
 }
-#formArea{
-  height:70%;
-  width:270px;
-  margin: auto;
-  position: fixed;
+
+header {
+  height:90px; width:100%;
 }
-#formArea > form{height:100%;width:100%;}
-#formArea > form > textarea{
-  width:100%;
-  height:100%;
-  border:1px solid #ddd;
+
+#coursesInput{
+  width:75%; height:100%;
   resize:none;
+  border:none; outline:none;
+  background:white;
+  padding:10px;
   font-size:18px;
-  padding-left:10px;
-  padding-top:10px;
+  border:1px solid;
+  border-top:none;
+  float:left;
 }
+
+#howto{
+  float:right;
+  width:20%;
+  height:100%;
+  padding:10px;
+  border:1px solid;
+  border-top:none;
+}
+
 #instructions,#notesWrapper{
   position:fixed;
   top:0; left:0;
@@ -43,17 +52,8 @@ html,body{font-family: 'Roboto', sans-serif;}
   position:absolute;
   top:0; left:0; right:0; bottom:0;
   z-index:999;
-  width:500px; height:500px;
+  width:500px; height:100px;
   background:#fff;
   padding:20px;
 
-}
-#howto{
-  width:100%;
-  border:1px solid #ccc;
-  padding-bottom:5px;
-  margin-bottom:20px;
-}
-#howto ul{
-  padding-left:20px;
 }

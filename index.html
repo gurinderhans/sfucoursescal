@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>SFU Courses Cal</title>
+    <title>SFU Courses Cal - BETA</title>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <link href='fullcalendar.css' rel='stylesheet' />
     <link href='fullcalendar.print.css' rel='stylesheet' media='print' />
@@ -14,27 +14,26 @@
   </head>
   <body>
     <div id="wrapper">
-      <div id="formArea">
-        <form>
-          <textarea id="coursesInput" placeholder="Paste schedule here..."></textarea>
-          <div id="howto">
-            <ul>
-              <li>Hold <i>i</i> for instructions.</li>
-              <li>Press <i>j</i> for screenshot.</li>
-              <li>Hold <i>n</i> for notes.</li>
-            </ul>
-          </div>
-        </form>
-      </div>
+      <header>
+        <textarea id="coursesInput" placeholder="Paste schedule here..."></textarea>
+        <div id="howto">
+          <ul>
+            <li><i>i</i>&nbsp;&nbsp;&nbsp; for instructions.</li>
+            <li><i>j</i>&nbsp;&nbsp;&nbsp; for screenshot.</li>
+            <li><i>n</i>&nbsp;&nbsp; for notes.</li>
+          </ul>
+        </div>
+      </header>
       <div id="calendar"></div>
     </div>
+
+    <!-- Etc. stuff -->
     <div id="instructions">
       <img src="instructions.jpg" />
     </div>
     <div id="notesWrapper">
       <div id="notes">
-        <li>For screenshots:</li>
-        <ul><li>(Need to enable popup for this page)</li></ul>
+        <li>For screenshots (Need to enable popup for this page)</li>
       </div>
     </div>
   </body>

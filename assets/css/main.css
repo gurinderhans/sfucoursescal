@@ -1,37 +1,43 @@
-html,body{font-family: 'Roboto', sans-serif;}
+html, body{font-family: 'Roboto', sans-serif;}
 #calendar{
   width:95%;
   z-index:-1;
   background-color:#fff;
   margin: 0 auto;
-}
-
-header {
-  height:90px; width:100%;
+  margin-top:20px;
 }
 
 #coursesInput{
-  width:75%; height:100%;
-  resize:none;
-  border:none; outline:none;
-  background:white;
+  width:90%;
+  height:20px;
+  margin:0 auto;
+  display:block;
   padding:10px;
+  resize:none; outline:none;
+  background:white;
   font-size:18px;
   border:1px solid;
   border-top:none;
+  font-family:"Roboto";
+  font-weight:100;
+}
+
+.fc-scroller::-webkit-scrollbar, .fc-toolbar {
+  display: none;
+}
+
+#left{
   float:left;
+  text-align:left;
 }
-
-#howto{
+#right{
   float:right;
-  width:20%;
-  height:100%;
-  padding:10px;
-  border:1px solid;
-  border-top:none;
+  text-align:right;
 }
 
-#instructions,#notesWrapper{
+.instr{ border-bottom:1px solid; }
+
+#instructions{
   position:fixed;
   top:0; left:0;
   width:100%;
@@ -47,13 +53,20 @@ header {
   top:0; left:0; right:0; bottom:0;
   width:60%;
 }
-#notes{
+#howto{
   margin:auto;
   position:absolute;
   top:0; left:0; right:0; bottom:0;
   z-index:999;
-  width:500px; height:100px;
+  width:220px; height:100px;
   background:#fff;
   padding:20px;
+}
+#howto h4{ margin:0; }
 
+.close{
+  position:absolute;
+  top:5px; right:5px;
+  color:#333;
+  cursor:pointer;
 }

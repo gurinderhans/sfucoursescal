@@ -2,14 +2,25 @@ $(document).ready(function(){
 
   var CLASS_STATUS_CODES = ["Open", "Closed", "Wait List"];
 
+  if(window.innerWidth < 580) week_display = 'ddd';
+  else week_display = 'dddd';
+
+  var cal_height = window.innerHeight - 85;
+
+  function isMobile(){
+    if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) )
+      return true;
+    return false;
+  }
+
   // == CALENDAR INITIALIZE START ==============================================
   $('#calendar').fullCalendar({
     defaultView: 'agendaWeek',
     allDaySlot: false,
-    height: 680,
+    height: cal_height,
     weekends:false,
     columnFormat: {
-      week: 'dddd'
+      week: week_display
     },
     minTime: "07:00:00",
     header: {
@@ -188,14 +199,29 @@ $(document).ready(function(){
   });
 
   $(window).keydown(function(evt) {
-    if (evt.which == 78) { // 'n'
+    if (evt.which == 72) { // 'h'
       $("#notesWrapper").show();
     }
-  }).keyup(function(evt) {
-    if (evt.which == 78) { // 'n'
-      $("#notesWrapper").hide();
-    }
   });
+
+  $("#left.instr").click(function(){
+    var win = window.open("instructions.jpg", '_blank');
+    win.focus();
+  });
+
+  $("#right.instr").click(function(){
+    html2canvas(document.getElementById("calendar"), {
+      onrendered: function(canvas) {
+        var myImage = canvas.toDataURL("image/png"); // maybe octet stream for downloading it straight
+        window.open(myImage);
+      }
+    });
+  });
+
+  if(isMobile()){
+    $("#left.instr span").text("Click");
+    $("#right.instr span").text("Click");
+  }
 
   //screenshot
   $(window).keydown(function(evt) {

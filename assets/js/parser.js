@@ -7,6 +7,11 @@ $(document).ready(function(){
 
   var cal_height = window.innerHeight - 90;
 
+  $(window).resize(function(){
+    cal_height = window.innerHeight - 90;
+    $('#calendar').fullCalendar('option', 'height', cal_height);
+  });
+
   function isMobile(){
     if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) )
       return true;

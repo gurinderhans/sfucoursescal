@@ -5,7 +5,7 @@ $(document).ready(function(){
   if(window.innerWidth < 580) week_display = 'ddd';
   else week_display = 'dddd';
 
-  var cal_height = window.innerHeight - 85;
+  var cal_height = window.innerHeight - 90;
 
   function isMobile(){
     if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) )
@@ -22,27 +22,20 @@ $(document).ready(function(){
     columnFormat: {
       week: week_display
     },
-    minTime: "07:00:00",
+    scrollTime: "07:00:00",
     header: {
       left: '',
       center: '',
       right: ''
     },
     defaultDate: '2014-11-17',
-    editable: false,
-    eventLimit: true
+    editable: false
   });
   // == CALENDAR INITIALIZE END ================================================
 
 
   function isBlank(str) {return (!str || /^\s*$/.test(str));}
   function strContains(st,inst){return !(inst.indexOf(st) ==-1);}
-
-  var chunks = function(array, size) {
-    var results = [];
-    while (array.length) {results.push(array.splice(0, size));}
-    return results;
-  };
 
   function mapDaysToWeekDayNames(weekDayName){
     switch(weekDayName) {
@@ -66,21 +59,32 @@ $(document).ready(function(){
     }
   }
 
-  function addNewEvent(eventTitle, startT, endT){
+  function addNewEvent(eventTitle, startT, endT, color, b_color){
     var newEvent = new Object();
     newEvent.title = eventTitle;
     newEvent.start = startT;
     newEvent.end = endT;
     newEvent.allDay = false;
+    newEvent.backgroundColor = color;
+    if(b_color!="default"){ newEvent.borderColor = b_color; }
     $('#calendar').fullCalendar('renderEvent', newEvent);
   }
 
   function parseCalendarDate(dayName){
     var returnDate = [];
     if(strContains("Days", dayName)){
-      //
+      returnDate.push(mapDaysToWeekDayNames("M"));
+      returnDate.push(mapDaysToWeekDayNames("Tu"));
+      returnDate.push(mapDaysToWeekDayNames("W"));
+      returnDate.push(mapDaysToWeekDayNames("Th"));
+      returnDate.push(mapDaysToWeekDayNames("F"));
     } else if(strContains("Tu", dayName) || strContains("Th", dayName)){
-      returnDate.push(mapDaysToWeekDayNames(dayName));
+      if(dayName.toLowerCase() == "TuTh".toLowerCase()){ // just in case
+        returnDate.push(mapDaysToWeekDayNames(dayName.slice(0,2)));
+        returnDate.push(mapDaysToWeekDayNames(dayName.slice(2,4)));
+      } else{
+        returnDate.push(mapDaysToWeekDayNames(dayName));
+      }
     } else{
       var splitDays = dayName.split("");
       for(k=0;k<splitDays.length;k++){
@@ -105,11 +109,8 @@ $(document).ready(function(){
     return parsedTime;
   }
 
-  //DEBUG SECTION
   function parse(coursesInput){
-    // var coursesInput = $("#coursesInput").val();
     var arrayCourses = coursesInput.split("\n");
-    // console.log(arrayCourses);
 
     var classes = [];
     for(i=0;i<arrayCourses.length;i++){
@@ -124,7 +125,6 @@ $(document).ready(function(){
         split.push(i);
       }
     }
-    // console.log(split);
 
     for(i=0;i<split.length-1;i++){
       classesSplit.push(classes.slice(split[i], split[i+1]));
@@ -138,7 +138,6 @@ $(document).ready(function(){
         }
         if(thisClass[j].indexOf("Delete") > -1) thisClass.splice(j,1);
       }
-      // thisClass.pop(); //?? MAYBE
     }
 
     return classesSplit;
@@ -146,13 +145,18 @@ $(document).ready(function(){
 
   function parseClasses(cr){
     var classesSplit = parse(cr);
-    // console.log(classesSplit);
     for(i=0; i<classesSplit.length; i++){
-      var parsedTimes = parseTime(classesSplit[i][2]);// classesSplit[i][2] == MWF 12:30 - 13:20
+      var parsedTimes = parseTime(classesSplit[i][2]);
       for(j=0;j<parsedTimes.length;j++){
+        var color = "#3a87ad"; var borderColor = "default";
+        if(strContains("Days", parsedTimes[j][0])){
+          parsedTimes[j].splice(1,1);
+          parsedTimes[j][3] = "2:00AM";
+          color = "#cd0000";
+          borderColor = "#ffffff";
+        }
         var parsedCalDates = parseCalendarDate(parsedTimes[j][0]);
         for(k=0;k<parsedCalDates.length;k++){
-          // console.log(parsedCalDates);
           var dayDate = parsedCalDates[k];
           var startTime = parsedTimes[j][1];
           var endTime = parsedTimes[j][3];
@@ -168,7 +172,7 @@ $(document).ready(function(){
           startTime = startTime.format("HH:mm:ss");
           endTime = endTime.format("HH:mm:ss");
 
-          addNewEvent(classesSplit[i][0], (dayDate+"T"+startTime), (dayDate+"T"+endTime));
+          addNewEvent(classesSplit[i][0], (dayDate+"T"+startTime), (dayDate+"T"+endTime), color, borderColor);
         }
       }
     }
@@ -182,11 +186,11 @@ $(document).ready(function(){
       var coursesInput = $("#coursesInput").val();
       $("#calendar").fullCalendar('removeEvents');
       parseClasses(coursesInput);
-      $("#coursesInput").blur();
+      $("#coursesInput").blur().val("").css("font-size","18px");
     }, 300);
   });
 
-  // ===== KEY EVENTS ====================================
+  // ===== KEY & CLICK EVENTS ====================================
 
   $(window).keydown(function(evt) {
     if (evt.which == 73) { // 'i'
@@ -205,7 +209,7 @@ $(document).ready(function(){
   });
 
   $("#left.instr").click(function(){
-    var win = window.open("instructions.jpg", '_blank');
+    var win = window.open("assets/images/instructions.jpg", '_blank');
     win.focus();
   });
 

@@ -148,8 +148,17 @@ $(document).ready(function(){
     return classesSplit;
   }
 
+  function displayErrorParsing(){
+    //give input red border and do a pop up style animation
+    $("#coursesInput").css("border", "1px solid red").css("border-top","none").addClass("shakeAnimation");
+    setTimeout(function(){ $("#coursesInput").removeClass("shakeAnimation");}, 400);
+  }
+
   function parseClasses(cr){
     var classesSplit = parse(cr);
+    //show error here
+    if(classesSplit.length == 0) displayErrorParsing();
+    else $("#coursesInput").css("border", "1px solid #09CF2A").css("border-top","none");
     for(i=0; i<classesSplit.length; i++){
       var parsedTimes = parseTime(classesSplit[i][2]);
       for(j=0;j<parsedTimes.length;j++){
@@ -188,8 +197,8 @@ $(document).ready(function(){
   $('#coursesInput').on('paste', function () {
     $(this).css("font-size","12px");
     setTimeout(function () {
-      var coursesInput = $("#coursesInput").val();
       $("#calendar").fullCalendar('removeEvents');
+      var coursesInput = $("#coursesInput").val();
       parseClasses(coursesInput);
       $("#coursesInput").blur().val("").css("font-size","18px");
     }, 300);

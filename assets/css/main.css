@@ -70,3 +70,77 @@ html, body{font-family: 'Roboto', sans-serif;}
   color:#333;
   cursor:pointer;
 }
+
+
+/* Chrome, Safari, Opera */
+@-webkit-keyframes shake {
+  0%   {
+    -ms-transform: translate(10px,0px); /* IE 9 */
+    -webkit-transform: translate(10px,0px); /* Chrome, Safari, Opera */
+    transform: translate(10px,0px);
+  }
+  25%  {
+    -ms-transform: translate(-20px,0px); /* IE 9 */
+    -webkit-transform: translate(-20px,0px); /* Chrome, Safari, Opera */
+    transform: translate(-20px,0px);
+  }
+  50%  {
+    -ms-transform: translate(10px,0px); /* IE 9 */
+    -webkit-transform: translate(10px,0px); /* Chrome, Safari, Opera */
+    transform: translate(10px,0px);
+  }
+  75%  {
+    -ms-transform: translate(-20px,0px); /* IE 9 */
+    -webkit-transform: translate(-20px,0px); /* Chrome, Safari, Opera */
+    transform: translate(-20px,0px);
+  }
+  100% {
+    -ms-transform: translate(0px,0px); /* IE 9 */
+    -webkit-transform: translate(0px,0px); /* Chrome, Safari, Opera */
+    transform: translate(0px,0px);
+  }
+}
+
+/* Standard syntax */
+@keyframes shake {
+  0%   {
+    -ms-transform: translate(10px,0px); /* IE 9 */
+    -webkit-transform: translate(10px,0px); /* Chrome, Safari, Opera */
+    transform: translate(10px,0px);
+  }
+  25%  {
+    -ms-transform: translate(-20px,0px); /* IE 9 */
+    -webkit-transform: translate(-20px,0px); /* Chrome, Safari, Opera */
+    transform: translate(-20px,0px);
+  }
+  50%  {
+    -ms-transform: translate(10px,0px); /* IE 9 */
+    -webkit-transform: translate(10px,0px); /* Chrome, Safari, Opera */
+    transform: translate(10px,0px);
+  }
+  75%  {
+    -ms-transform: translate(-20px,0px); /* IE 9 */
+    -webkit-transform: translate(-20px,0px); /* Chrome, Safari, Opera */
+    transform: translate(-20px,0px);
+  }
+  100% {
+    -ms-transform: translate(0px,0px); /* IE 9 */
+    -webkit-transform: translate(0px,0px); /* Chrome, Safari, Opera */
+    transform: translate(0px,0px);
+  }
+}
+
+.shakeAnimation{
+  /* Chrome, Safari, Opera */
+  -webkit-animation-name: shake;
+  -webkit-animation-duration: 0.3s;
+  -webkit-animation-timing-function: linear;
+  -webkit-animation-direction: alternate;
+  -webkit-animation-play-state: running;
+  /* Standard syntax */
+  animation-name: shake;
+  animation-duration: 0.3s;
+  animation-timing-function: linear;
+  animation-direction: alternate;
+  animation-play-state: running;
+}

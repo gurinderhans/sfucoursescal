@@ -26,6 +26,10 @@ html, body{font-family: 'Roboto', sans-serif;}
   display: none;
 }
 
+.fc-day-header.fc-widget-header {
+  font-weight: 400;
+}
+
 #left{
   float:left;
   text-align:left;

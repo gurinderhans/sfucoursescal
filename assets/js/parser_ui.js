@@ -23,7 +23,7 @@ $(document).ready(function(){
     defaultView: 'agendaWeek',
     allDaySlot: false,
     height: cal_height,
-    weekends:false,
+    weekends: false,
     columnFormat: {
       week: week_display
     },
@@ -45,7 +45,7 @@ $(document).ready(function(){
   function mapDaysToWeekDayNames(weekDayName){
     switch(weekDayName) {
       case "M":
-        return "2014-11-17";//start day of this project
+        return "2014-11-17"; // first day of project
         break;
       case "Tu":
         return "2014-11-18";
@@ -105,51 +105,36 @@ $(document).ready(function(){
     setTimeout(function(){ $("#coursesInput").removeClass("shakeAnimation");}, 400);
   }
 
-  // function parseClasses(cr) {
-  //
-  //   var classesSplit = Parser.parse(cr);
-  //
-  //   // show error here
-  //   if(classesSplit.length == 0) displayErrorParsing();
-  //   else $("#coursesInput").css("border", "1px solid #09CF2A").css("border-top","none");
-  //   for(i=0; i<classesSplit.length; i++){
-  //     var parsedTimes = parseTime(classesSplit[i][2]);
-  //     for(j=0;j<parsedTimes.length;j++){
-  //       var color = "#3a87ad"; var borderColor = "default";
-  //       if(strContains("Days", parsedTimes[j][0])){
-  //         parsedTimes[j].splice(1,1);
-  //         parsedTimes[j][3] = "2:00AM";
-  //         color = "#cd0000";
-  //         borderColor = "#ffffff";
-  //       }
-  //       var parsedCalDates = parseCalendarDate(parsedTimes[j][0]);
-  //       for(k=0;k<parsedCalDates.length;k++){
-  //         var dayDate = parsedCalDates[k];
-  //         var startTime = parsedTimes[j][1];
-  //         var endTime = parsedTimes[j][3];
-  //
-  //         if(strContains("m",startTime.toLowerCase())){
-  //           startTime = moment(startTime, "HH:mmA");
-  //           endTime = moment(endTime, "HH:mmA");
-  //         } else{
-  //           startTime = moment(startTime, "HH:mm");
-  //           endTime = moment(endTime, "HH:mm");
-  //         }
-  //
-  //         startTime = startTime.format("HH:mm:ss");
-  //         endTime = endTime.format("HH:mm:ss");
-  //
-  //         addNewEvent(classesSplit[i][0], (dayDate+"T"+startTime), (dayDate+"T"+endTime), color, borderColor);
-  //       }
-  //     }
-  //   }
-  // }
+  function formatTime(time) {
+    // if it contains AM/PM, keep that formatting
+    if(strContains("m", time.toLowerCase())){
+      return moment(time, "HH:mmA");
+    } else{
+      return moment(time, "HH:mm");
+    }
+  }
 
   function parseStuff(data) {
-    Parser.parse(data).forEach(function (eachClass, i) {
-      var ss = parseCalendarDate(eachClass['class_time'][0]['weekDays']);
-      console.log(ss);
-      // addNewEvent(eachClass['class_name'], eachClass)
+
+    var classes = Parser.parse(data)
+
+    if(classes.length == 0) displayErrorParsing();
+    else $("#coursesInput").css("border", "1px solid #09CF2A").css("border-top","none");
+
+    classes.forEach(function (eachClass, i) {
+      // var ss = parseCalendarDate(eachClass['class_time'][0]['weekDays']);
+
+      eachClass['class_time'].forEach(function (time, i) {
+        var title = eachClass['class_name']
+
+        var startTime = formatTime(time['startTime']).format("HH:mm:ss")
+        var endTime = formatTime(time['endTime']).format("HH:mm:ss")
+
+        parseCalendarDate(time['weekDays']).forEach(function (date, i) {
+          console.log(startTime);
+          addNewEvent(title, date+"T"+startTime, date+"T"+endTime, "#cd0000", "#fff");
+        });
+      })
     })
   }
 

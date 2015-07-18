@@ -70,13 +70,18 @@ var Parser = (function () {
 
       // this is a special case where the `time` array is length size 4,
       // and in that case we just remove the `Days` string element
-      if (time[0].indexOf("Days") > -1)
+      if (time[0].indexOf("Days") > -1) {
         time.splice(0, 1)
+        // we don't know the time for this class, so we'll put it up top,
+        // with length of 1 hour
+        time[1] = "0:00AM"
+        time[3] = "1:00AM"
+      }
 
       classTimes.push({
         'weekDays': time[0],
-        'startTime': time[1],
-        'endTime': time[3],
+        'startTime': Tools.formatTime(time[1], "HH:mm:ss"),
+        'endTime': Tools.formatTime(time[3], "HH:mm:ss"),
       })
     });
 
@@ -100,6 +105,14 @@ var Parser = (function () {
 // TOOLS
 var Tools = (function () {
 
+  const WEEK_DAYS = {
+    "M": "2014-11-17",
+    "Tu": "2014-11-18",
+    "W": "2014-11-19",
+    "Th": "2014-11-20",
+    "F": "2014-11-21",
+  }
+
   var _isBlank = function (str) {
     return (!str || /^\s*$/.test(str));
   }
@@ -118,9 +131,58 @@ var Tools = (function () {
     return trimmedData
   }
 
+  var formatTime = function (timeString, formatStyle) {
+    // if it contains AM/PM, keep that formatting
+    if(strContains("m", timeString.toLowerCase())){
+      return moment(timeString, "HH:mmA").format(formatStyle);
+    } else{
+      return moment(timeString, "HH:mm").format(formatStyle);
+    }
+  }
+
+  var mapWeekDayToCalDate = function (dayNameStr) {
+
+    // special case
+    if (dayNameStr == "TBA") {
+      var arr = [Tools.WEEK_DAYS["M"]
+                , Tools.WEEK_DAYS["Tu"]
+                , Tools.WEEK_DAYS["W"]
+                , Tools.WEEK_DAYS["Th"]
+                , Tools.WEEK_DAYS["F"]]
+      return arr
+    }
+
+    var returnDate = [];
+    if(Tools.strContains("Tu", dayNameStr) || Tools.strContains("Th", dayNameStr)){
+
+      if(dayNameStr.toLowerCase() == "TuTh".toLowerCase()){ // just in case
+        returnDate.push(Tools.WEEK_DAYS[dayNameStr.slice(0,2)]);
+        returnDate.push(Tools.WEEK_DAYS[dayNameStr.slice(2,4)]);
+      } else{
+        returnDate.push(Tools.WEEK_DAYS[dayNameStr]);
+      }
+    } else{
+      var splitDays = dayNameStr.split("");
+      for (i = 0; i < splitDays.length; i++)
+        returnDate.push(Tools.WEEK_DAYS[splitDays[i]]);
+    }
+
+    return returnDate;
+  }
+
+  var isMobile = function (){
+    if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) )
+      return true;
+    return false;
+  }
+
   return {
     trimArray: trimArray,
     strContains: strContains,
+    formatTime: formatTime,
+    WEEK_DAYS: WEEK_DAYS,
+    mapWeekDayToCalDate: mapWeekDayToCalDate,
+    isMobile: isMobile,
   };
 
 })();

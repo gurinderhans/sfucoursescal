@@ -11,8 +11,10 @@ $(document).ready(function(){
   });
 
 
+  /**
+   * Calendar Initialization
+   */
 
-  // == CALENDAR INITIALIZE START ==============================================
   $('#calendar').fullCalendar({
     defaultView: 'agendaWeek',
     allDaySlot: false,
@@ -30,26 +32,31 @@ $(document).ready(function(){
     defaultDate: '2014-11-17',
     editable: false
   });
-  // == CALENDAR INITIALIZE END ================================================
 
 
 
   function addNewEvent(eventTitle, startT, endT, color, b_color){
+
     var newEvent = new Object();
     newEvent.title = eventTitle;
     newEvent.start = startT;
     newEvent.end = endT;
     newEvent.allDay = false;
     newEvent.backgroundColor = color;
-    if(b_color!="default"){ newEvent.borderColor = b_color; }
+
+    if (b_color != "default") {
+      newEvent.borderColor = b_color;
+    }
+
     $('#calendar').fullCalendar('renderEvent', newEvent);
   }
 
 
 
   function displayErrorParsing(){
-    //give input red border and do a pop up style animation
+    // give input red border and do a pop up style animation
     $("#coursesInput").css("border", "1px solid red").css("border-top","none").addClass("shakeAnimation");
+    // remove the class after 0.4s when the animation is over
     setTimeout(function(){ $("#coursesInput").removeClass("shakeAnimation");}, 400);
   }
 

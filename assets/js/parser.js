@@ -42,8 +42,6 @@ var Parser = (function () {
 
     });
 
-    // console.log(classes);
-
     return classes;
   }
 
@@ -91,7 +89,8 @@ var Parser = (function () {
   var parse = function (rawdata) {
     var splitByLine = rawdata.split("\n")
 
-    // TODO: header checks to decide how data will be parsed
+    // TODO: header checks to decide how data will be parsed,
+    // when getting data from multiple places
 
     return _parseCourseCart(splitByLine)
   }
@@ -102,7 +101,11 @@ var Parser = (function () {
 
 })();
 
-// TOOLS
+
+/**
+ * Tools module
+ * - contains helper functions use throughout the code
+ */
 var Tools = (function () {
 
   const WEEK_DAYS = {
@@ -117,8 +120,8 @@ var Tools = (function () {
     return (!str || /^\s*$/.test(str));
   }
 
-  var strContains = function (st,inst) {
-    return !(inst.indexOf(st) ==-1);
+  var strContains = function (str, inString) {
+    return !(inString.indexOf(str) ==-1);
   }
 
   var trimArray = function (arr) {
@@ -170,7 +173,7 @@ var Tools = (function () {
     return returnDate;
   }
 
-  var isMobile = function (){
+  var isMobile = function () {
     if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) )
       return true;
     return false;
@@ -180,9 +183,9 @@ var Tools = (function () {
     trimArray: trimArray,
     strContains: strContains,
     formatTime: formatTime,
-    WEEK_DAYS: WEEK_DAYS,
     mapWeekDayToCalDate: mapWeekDayToCalDate,
     isMobile: isMobile,
+    WEEK_DAYS: WEEK_DAYS,
   };
 
 })();

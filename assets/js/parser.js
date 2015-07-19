@@ -1,3 +1,6 @@
+/**
+ * Parser module
+ */
 var Parser = (function () {
 
   // different class statuses
@@ -11,7 +14,7 @@ var Parser = (function () {
     // clean input data
     var trimmedData = Tools.trimArray(data)
 
-    // split data into seperate classes
+    // split data into seperate classes by creating array chunks
     var classesArr = []
     var tmp_last_data_split_index = 0
     for (i = 0; i < trimmedData.length; i++) {
@@ -31,6 +34,7 @@ var Parser = (function () {
           thisClass.splice(i, 1)
       }
 
+      // `class` model
       classes.push({
         'class_name': thisClass[0],
         'class_id': thisClass[1],
@@ -45,6 +49,9 @@ var Parser = (function () {
     return classes;
   }
 
+  /**
+   * Returns an array[] of dictionaries containing the class times
+   */
   var _parseTime = function (timeString) {
 
     var parsedTime = [];
@@ -86,6 +93,9 @@ var Parser = (function () {
     return classTimes
   }
 
+  /**
+   * returns the parsed data
+   */
   var parse = function (rawdata) {
     var splitByLine = rawdata.split("\n")
 
@@ -116,14 +126,27 @@ var Tools = (function () {
     "F": "2014-11-21",
   }
 
+  /**
+   * `private` function used internally to check if a given string is blank,
+   * undefined or empty
+   */
   var _isBlank = function (str) {
     return (!str || /^\s*$/.test(str));
   }
 
+
+  /**
+   * Returns `true` if `str` is a subset of `inString`
+   */
   var strContains = function (str, inString) {
-    return !(inString.indexOf(str) ==-1);
+    return ~inString.indexOf(str);
   }
 
+
+
+  /**
+   * - Trims an array removing any empty / blank elements from it
+   */
   var trimArray = function (arr) {
     var trimmedData = []
     for (i = 0; i < arr.length; i++) {
@@ -134,6 +157,11 @@ var Tools = (function () {
     return trimmedData
   }
 
+
+
+  /**
+   * Returns the 24hr time with style `formatStyle`
+   */
   var formatTime = function (timeString, formatStyle) {
     // if it contains AM/PM, keep that formatting
     if(strContains("m", timeString.toLowerCase())){
@@ -143,6 +171,12 @@ var Tools = (function () {
     }
   }
 
+
+
+  /**
+   * Given a week day name, ex. "Tu", it returns the full calendar date
+   * for that day from `Tools.WEEK_DAYS`
+   */
   var mapWeekDayToCalDate = function (dayNameStr) {
 
     // special case
@@ -173,12 +207,21 @@ var Tools = (function () {
     return returnDate;
   }
 
+
+
+  /**
+   * Returns true if device `userAgent` is of mobile
+   */
   var isMobile = function () {
     if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) )
       return true;
     return false;
   }
 
+
+  /**
+   * Return functions that will be publicly accessible
+   */
   return {
     trimArray: trimArray,
     strContains: strContains,

@@ -1,0 +1,79 @@
+@import url('http://fonts.googleapis.com/css?family=Raleway:200,500,700,800');
+
+@calendar-font: 'Raleway';
+
+* {
+  &, &::after, &::before {
+    -webkit-box-sizing: border-box; box-sizing: border-box;
+  }
+}
+
+body {
+	background: #f9f7f6;
+	color: #404d5b;
+	font-weight: 500;
+	font-size: 1.05em;
+	font-family: 'Raleway', Arial, sans-serif;
+
+  .nomargin-bottom {
+  	margin-bottom: 0;
+  }
+}
+
+a {
+	color: #2fa0ec;
+	text-decoration: none;
+	outline: none;
+
+  &:hover, &:focus {
+    color: #404d5b;
+  }
+}
+
+
+.container {
+	margin: 0 auto;
+	text-align: center;
+	overflow: hidden;
+	margin-top: -5px;
+}
+
+.header {
+	font-size: 150%;
+	padding: 3em 0;
+	padding-top: 5px;
+	height: 195px;
+
+  h2 {
+  	opacity: 0.1;
+  }
+
+  p {
+  	margin: 1em 0;
+  	padding: 5em 0 0 0;
+  	font-size: 0.65em;
+  }
+
+}
+
+.bgcolor { background: #e8e8e8; }
+
+#calendar {
+  font-family: @calendar-font;
+  margin-top: 10px;
+
+  .fc-day-header.fc-widget-header {
+  	font-weight: 400;
+  	background-color: #9e9e9e;
+    color: white;
+  }
+
+  .fc-time-grid .fc-slats .fc-minor td {
+  	border-style: none;
+  }
+
+  .fc-scroller::-webkit-scrollbar, .fc-toolbar {
+    display: none;
+  }
+
+}

@@ -2,6 +2,32 @@
 
 @calendar-font: 'Raleway';
 
+.transform(@string){
+	-webkit-transform: @string;
+	-moz-transform: 	 @string;
+	-ms-transform: 		 @string;
+	-o-transform: 		 @string;
+}
+
+.mixi-frames () {
+  0% {
+    .transform(rotate(0deg));
+  }
+  33% {
+    .transform(rotate(360deg));
+  }
+  100% {
+    .transform(rotate(360deg));
+  }
+}
+
+@-webkit-keyframes rotate {.mixi-frames;}
+@-moz-keyframes rotate {.mixi-frames;}
+@-ms-keyframes rotate {.mixi-frames;}
+@-o-keyframes rotate {.mixi-frames;}
+@keyframes rotate {.mixi-frames;}
+
+
 * {
   &, &::after, &::before {
     -webkit-box-sizing: border-box; box-sizing: border-box;
@@ -45,13 +71,17 @@ a {
 	height: 195px;
 
   h2 {
-  	opacity: 0.1;
+  	opacity: 0.3;
 
     @media screen and (max-width: 480px) {
       font-size : 24px;
     }
 
-    &::after {
+		a {
+			outline:none;
+		}
+
+    .icon_info {
       content: "";
       display: inline-block;
       vertical-align: middle;
@@ -59,8 +89,11 @@ a {
       background-size: 100%;
       width: 30px;
       height: 30px;
-      margin-left: 10px;
       cursor: pointer;
+      animation-name: rotate;
+      animation-duration: 4s;
+      animation-delay: 1s;
+      animation-iteration-count: infinite;
     }
   }
 
@@ -76,16 +109,15 @@ a {
 
 }
 
-.bgcolor { background: #e8e8e8; }
+.bgcolor { background: #df6659; color: #521e18; }
 
 #calendar {
   font-family: @calendar-font;
   margin-top: 10px;
+	background-color: #f9f7f6;
 
   .fc-day-header.fc-widget-header {
   	font-weight: 400;
-  	background-color: #9e9e9e;
-    color: #ffffff;
   }
 
   .fc-time-grid .fc-slats .fc-minor td {

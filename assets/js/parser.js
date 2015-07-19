@@ -24,10 +24,6 @@ var Parser = (function () {
     for (i = 0; i < trimmedData.length; i++) {
       if (CLASS_STATUS_CODES.hasOwnProperty(trimmedData[i])) {
 
-        // console.log(trimmedData[i], trimmedData[tmp_last_data_split_index]);
-        // console.log(tmp_last_data_split_index);
-        // console.log(trimmedData.slice(tmp_last_data_split_index, i+1));
-
         var next = i+1;
 
         classesArr.push(trimmedData.slice(tmp_last_data_split_index, next))

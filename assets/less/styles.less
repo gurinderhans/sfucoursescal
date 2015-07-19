@@ -47,6 +47,10 @@ a {
   h2 {
   	opacity: 0.1;
 
+    @media screen and (max-width: 480px) {
+      font-size : 24px;
+    }
+
     &::after {
       content: "";
       display: inline-block;
@@ -64,6 +68,10 @@ a {
   	margin: 1em 0;
   	padding: 5em 0 0 0;
   	font-size: 0.65em;
+  }
+
+  @media screen and (max-width: 480px) {
+    height: 157px;
   }
 
 }

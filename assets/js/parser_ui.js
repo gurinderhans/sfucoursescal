@@ -87,4 +87,18 @@ $(document).ready(function () {
     })
   }
 
+  // screenshot
+  $(window).keydown(function(evt) {
+    if (evt.which == 74) {} // j
+  }).keyup(function(evt) {
+    if (evt.which == 74) { // 'j'
+      html2canvas(document.getElementById("calendar"), {
+        onrendered: function(canvas) {
+          var myImage = canvas.toDataURL("image/png"); // maybe octet stream for downloading it straight
+          window.open(myImage);
+        }
+      });
+    }
+  });
+
 });

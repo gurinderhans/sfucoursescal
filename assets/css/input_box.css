@@ -68,7 +68,7 @@
 /* Makiko */
 .input--makiko {
 	overflow: hidden;
-	background: #CBCBCB;
+	background: #F48477;
 }
 
 .input__field--makiko {
@@ -86,7 +86,7 @@
 	width: 100%;
 	text-align: left;
 	pointer-events: none;
-	color: #fff;
+	color: #f9f7f6;
 }
 
 .input__label--makiko::before {

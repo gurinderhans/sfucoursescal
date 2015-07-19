@@ -7,7 +7,7 @@ $(document).ready(function () {
     defaultView: 'agendaWeek',
     allDaySlot: true,
     allDayText: 'TBA',
-    height: (window.innerHeight - 50), // TODO: update on window.resize
+    height: (window.innerHeight - 50),
     weekends: false,
     columnFormat: {
       week: 'ddd',

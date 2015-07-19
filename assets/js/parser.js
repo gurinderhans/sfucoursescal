@@ -127,10 +127,9 @@ var Tools = (function () {
   }
 
   /**
-   * `private` function used internally to check if a given string is blank,
-   * undefined or empty
+   * Checks if a given string is blank, undefined or empty
    */
-  var _isBlank = function (str) {
+  var isBlank = function (str) {
     return (!str || /^\s*$/.test(str));
   }
 
@@ -150,7 +149,7 @@ var Tools = (function () {
   var trimArray = function (arr) {
     var trimmedData = []
     for (i = 0; i < arr.length; i++) {
-      if (!_isBlank(arr[i])) {
+      if (!isBlank(arr[i])) {
         trimmedData.push(arr[i].trim())
       }
     }
@@ -228,6 +227,7 @@ var Tools = (function () {
     formatTime: formatTime,
     mapWeekDayToCalDate: mapWeekDayToCalDate,
     isMobile: isMobile,
+    isBlank: isBlank,
     WEEK_DAYS: WEEK_DAYS,
   };
 

@@ -1,32 +1,77 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>SFU Courses Cal - BETA</title>
-    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=no">
-    <link rel="icon" type="image/png" href="assets/images/calendar-icon.png">
-  </head>
-  <body>
-    <div id="wrapper">
-      <textarea id="coursesInput" placeholder="Click and paste here..."></textarea>
-      <div id="calendar"></div>
-    </div>
+<html lang="en" class="no-js">
+	<head>
+		<title>SFU Course Calendar - BETA</title>
+		<meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=no">
+		<link rel="icon" type="image/png" href="assets/images/calendar-icon.png">
 
-    <!-- Etc. stuff -->
-    <div id="instructions">
-      <img src="assets/images/instructions.jpg" />
-    </div>
+		<link rel="stylesheet/less" type="text/css" href="assets/less/styles.less" />
 
-    <p id="left" class="instr"><span>i</span> for instructions</p>
-    <p id="right" class="instr"><span>j</span> for screenshot</p>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/less.js/2.5.1/less.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,500,700' rel='stylesheet' type='text/css'>
-    <script src='assets/js/moment.min.js'></script>
-    <link href='assets/fullcalendar/fullcalendar.css' rel='stylesheet' />
-    <link href='assets/fullcalendar/fullcalendar.print.css' rel='stylesheet' media='print' />
-    <script src='assets/fullcalendar/fullcalendar.min.js'></script>
-    <script async src="assets/js/html2canvas.min.js"></script>
-    <script src="assets/js/parser.min.js"></script>
-    <link href="assets/css/main.min.css" rel='stylesheet' />
-  </body>
+		<link rel="stylesheet" type="text/css" href="assets/css/normalize.css" />
+		<link rel="stylesheet" type="text/css" href="assets/css/input_box.css" />
+
+		<script src="assets/fullcalendar/lib/moment.min.js"></script>
+		<link href="assets/fullcalendar/fullcalendar.min.css" rel='stylesheet' />
+    <link href="assets/fullcalendar/fullcalendar.print.css" rel='stylesheet' media='print' />
+    <script src="assets/fullcalendar/fullcalendar.min.js"></script>
+    <script src="assets/js/parser.js"></script>
+    <script src="assets/js/parser_ui.js"></script>
+
+	</head>
+	<body>
+		<div class="container">
+			<header class="header bgcolor">
+				<h2>SFU Course Calendar</h2>
+				<span class="input input--makiko">
+					<textarea class="input__field input__field--makiko" id="courses-text"></textarea>
+					<label class="input__label input__label--makiko" for="courses-text">
+						<span class="input__label-content input__label-content--makiko">Click &amp; Paste</span>
+					</label>
+				</span>
+			</header>
+			<div class="content">
+        <div id="calendar"></div>
+      </div>
+		</div><!-- /container -->
+
+		<script src="assets/js/classie.js"></script>
+		<script>
+			(function() {
+				// trim polyfill : https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/Trim
+				if (!String.prototype.trim) {
+					(function() {
+						// Make sure we trim BOM and NBSP
+						var rtrim = /^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g;
+						String.prototype.trim = function() {
+							return this.replace(rtrim, '');
+						};
+					})();
+				}
+
+				[].slice.call( document.querySelectorAll( 'textarea.input__field' ) ).forEach( function( inputEl ) {
+					// in case the input is already filled..
+					if( inputEl.value.trim() !== '' ) {
+						classie.add( inputEl.parentNode, 'input--filled' );
+					}
+
+					// events:
+					inputEl.addEventListener( 'focus', onInputFocus );
+					inputEl.addEventListener( 'blur', onInputBlur );
+				} );
+
+				function onInputFocus( ev ) {
+					classie.add( ev.target.parentNode, 'input--filled' );
+				}
+
+				function onInputBlur( ev ) {
+					if( ev.target.value.trim() === '' ) {
+						classie.remove( ev.target.parentNode, 'input--filled' );
+					}
+				}
+			})();
+		</script>
+	</body>
 </html>

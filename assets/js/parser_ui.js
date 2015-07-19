@@ -36,6 +36,11 @@ $(document).ready(function () {
       $("#calendar").fullCalendar('removeEvents');
       // add new data
       addCalendarData($("#courses-text").val());
+
+      $('#courses-text').blur().val("")
+
+      $('.input.input--makiko').removeClass('input--filled');
+
     }, 300);
   });
 

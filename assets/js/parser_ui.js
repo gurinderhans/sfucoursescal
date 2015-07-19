@@ -19,7 +19,7 @@ $(document).ready(function () {
       right: ''
     },
     defaultDate: '2014-11-17',
-    editable: true,
+    editable: false,
   });
 
 

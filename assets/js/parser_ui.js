@@ -101,4 +101,10 @@ $(document).ready(function () {
     }
   });
 
+
+  // update calendar height on window resize
+  $(window).resize(function(){
+    $('#calendar').fullCalendar('option', 'height', (window.innerHeight - 50));
+  });
+
 });

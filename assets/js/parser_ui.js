@@ -19,7 +19,7 @@ $(document).ready(function () {
       right: ''
     },
     defaultDate: '2014-11-17',
-    editable: false,
+    editable: true,
   });
 
 
@@ -45,7 +45,7 @@ $(document).ready(function () {
   });
 
   // animate input bar on click
-  $("#courses-text").click(function () {
+  $("#courses-text").focus(function () {
     $(".header h2").slideUp(250);
     $(".header").animate({
       height: "80px"
@@ -61,6 +61,7 @@ $(document).ready(function () {
     newEvent.end = endT;
     newEvent.allDay = (~endT.indexOf("01:00:00")) ? true : false;
     newEvent.backgroundColor = color;
+    newEvent.textColor = "#333"
 
     if (b_color != "default") {
       newEvent.borderColor = b_color;
@@ -81,7 +82,9 @@ $(document).ready(function () {
         var endTime = time['endTime']
 
         Tools.mapWeekDayToCalDate(time['weekDays']).forEach(function (date, i) {
-          addNewEvent(title, date+"T"+startTime, date+"T"+endTime, "#cd0000", "#fff");
+          // ** background color == campus color
+          // ** border color == class status color
+          addNewEvent(title, date+"T"+startTime, date+"T"+endTime, "#fff", Parser.CLASS_STATUS_CODES[eachClass['class_status']]);
         });
       })
     })

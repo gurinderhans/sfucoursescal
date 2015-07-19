@@ -4,7 +4,11 @@
 var Parser = (function () {
 
   // different class statuses
-  const CLASS_STATUS_CODES = ["Open", "Closed", "Wait List"];
+  const CLASS_STATUS_CODES = {
+    "Open": "#16d016",
+    "Closed": "red",
+    "Wait List": "#ffcb00",
+  }
 
   var _parseCourseCart = function (data) {
 
@@ -18,7 +22,7 @@ var Parser = (function () {
     var classesArr = []
     var tmp_last_data_split_index = 0
     for (i = 0; i < trimmedData.length; i++) {
-      if (CLASS_STATUS_CODES.indexOf(trimmedData[i]) > -1) {
+      if (CLASS_STATUS_CODES.hasOwnProperty(trimmedData[i])) {
         classesArr.push(trimmedData.slice(tmp_last_data_split_index, i))
         tmp_last_data_split_index = i
       }
@@ -26,10 +30,16 @@ var Parser = (function () {
 
     // remove class status codes, and `Delete` string
     classesArr.forEach(function (thisClass, index) {
-      for (i = 0; i < thisClass.length; i++) {
-        if (CLASS_STATUS_CODES.indexOf(thisClass[i]) > -1)
-          thisClass.splice(i, 1)
 
+      var class_status = ''
+
+      for (i = 0; i < thisClass.length; i++) {
+
+        if (CLASS_STATUS_CODES.hasOwnProperty(thisClass[i])) {
+          class_status = thisClass.splice(i, 1)
+        }
+
+        // remove 'Delete' button from array
         if (thisClass[i].indexOf("Delete") > -1)
           thisClass.splice(i, 1)
       }
@@ -41,7 +51,8 @@ var Parser = (function () {
         'class_time': _parseTime(thisClass[2]),
         'class_room': thisClass[3],
         'class_instructor': thisClass[4],
-        'class_units': thisClass[5]
+        'class_units': thisClass[5],
+        'class_status': class_status,
       })
 
     });
@@ -107,6 +118,7 @@ var Parser = (function () {
 
   return {
     parse: parse,
+    CLASS_STATUS_CODES: CLASS_STATUS_CODES,
   };
 
 })();

@@ -76,6 +76,8 @@ $(document).ready(function () {
 
     classes.forEach(function (eachClass, i) {
 
+      // console.log(eachClass);
+
       eachClass['class_time'].forEach(function (time, i) {
         var title = eachClass['class_name']
         var startTime = time['startTime']

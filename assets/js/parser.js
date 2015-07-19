@@ -23,25 +23,33 @@ var Parser = (function () {
     var tmp_last_data_split_index = 0
     for (i = 0; i < trimmedData.length; i++) {
       if (CLASS_STATUS_CODES.hasOwnProperty(trimmedData[i])) {
-        classesArr.push(trimmedData.slice(tmp_last_data_split_index, i))
-        tmp_last_data_split_index = i
+
+        // console.log(trimmedData[i], trimmedData[tmp_last_data_split_index]);
+        // console.log(tmp_last_data_split_index);
+        // console.log(trimmedData.slice(tmp_last_data_split_index, i+1));
+
+        var next = i+1;
+
+        classesArr.push(trimmedData.slice(tmp_last_data_split_index, next))
+        tmp_last_data_split_index = next
       }
     }
 
     // remove class status codes, and `Delete` string
     classesArr.forEach(function (thisClass, index) {
 
-      var class_status = ''
+      var class_status = '';
 
+      // remove 'Delete' button from array
+      if (thisClass.indexOf("Delete") > -1) {
+        thisClass.splice(thisClass.indexOf("Delete"), 1)
+      }
+
+      // remove class status
       for (i = 0; i < thisClass.length; i++) {
-
         if (CLASS_STATUS_CODES.hasOwnProperty(thisClass[i])) {
           class_status = thisClass.splice(i, 1)
         }
-
-        // remove 'Delete' button from array
-        if (thisClass[i].indexOf("Delete") > -1)
-          thisClass.splice(i, 1)
       }
 
       // `class` model

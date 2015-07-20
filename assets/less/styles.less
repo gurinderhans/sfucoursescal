@@ -130,7 +130,50 @@ a {
 
   .fc-time-grid-event.fc-v-event.fc-event,
   .fc-day-grid-event.fc-h-event.fc-event {
-    border-width:3px;
+    border-width: 2.5px;
   }
+
+	.class-status {
+
+		// mixin
+		.StatusIcon(@bgUrl, @verticalAlign) {
+			content: "";
+			display: inline-block;
+			width: 10px;
+			height: 10px;
+			vertical-align: @verticalAlign;
+			margin-right: 3px;
+			margin-left: 2px;
+			background: url(@bgUrl) no-repeat;
+			background-size: 100%;
+		}
+
+		// TBA event styles
+		&.fc-day-grid-event.fc-h-event.fc-event.open {
+			.fc-title::before {
+				.StatusIcon('../images/open.png', 0px)
+			}
+		}
+		&.fc-day-grid-event.fc-h-event.fc-event.closed {
+			.fc-title::before {
+				.StatusIcon('../images/closed.png', 0px)
+			}
+		}
+		&.fc-day-grid-event.fc-h-event.fc-event.waitlist {
+			.fc-title::before {
+				.StatusIcon('../images/waitlist.png', 0px)
+			}
+		}
+
+		&.open .fc-time::before {
+			.StatusIcon('../images/open.png', -2px)
+		}
+		&.closed .fc-time::before {
+			.StatusIcon('../images/closed.png', -2px)
+		}
+		&.waitlist .fc-time::before {
+			.StatusIcon('../images/waitlist.png', -2px);
+		}
+	}
 
 }

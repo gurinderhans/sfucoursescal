@@ -53,19 +53,17 @@ $(document).ready(function () {
   });
 
 
-  function addNewEvent(eventTitle, startT, endT, color, b_color){
+  function addNewEvent(eventTitle, startT, endT, color, classStatus){
 
     var newEvent = new Object();
     newEvent.title = eventTitle;
     newEvent.start = startT;
     newEvent.end = endT;
     newEvent.allDay = (~endT.indexOf("01:00:00")) ? true : false;
-    newEvent.backgroundColor = color;
-    newEvent.textColor = "#333"
-
-    if (b_color != "default") {
-      newEvent.borderColor = b_color;
-    }
+    newEvent.backgroundColor = "#fff";
+    newEvent.borderColor = color;
+    newEvent.textColor = "rgb(13, 103, 65)"
+    newEvent.className = classStatus
 
     $('#calendar').fullCalendar('renderEvent', newEvent);
   }
@@ -83,8 +81,19 @@ $(document).ready(function () {
 
         Tools.mapWeekDayToCalDate(time['weekDays']).forEach(function (date, i) {
           // ** background color == campus color
-          // ** border color == class status color
-          addNewEvent(title, date+"T"+startTime, date+"T"+endTime, "#fff", Parser.CLASS_STATUS_CODES[eachClass['class_status']]);
+          var class_campus_color = 'rgb(231, 231, 231)';
+          for (key in Parser.CAMPUS_MAP_COLORS) {
+
+            Parser.CAMPUS_MAP_COLORS[key].forEach(function (val, index) {
+              if (eachClass['class_room'].indexOf(val) > -1) {
+                class_campus_color = key
+              }
+            });
+          }
+
+          var class_status = "class-status "+Tools.trimString(eachClass['class_status'].toString().toLowerCase());
+
+          addNewEvent(title, date+"T"+startTime, date+"T"+endTime, class_campus_color, class_status);
         });
       })
     })

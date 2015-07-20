@@ -10,6 +10,13 @@ var Parser = (function () {
     "Wait List": "#ffcb00",
   }
 
+  // classroom codes matching the campus
+  const CAMPUS_MAP_COLORS = {
+    "rgb(130, 215, 134)": ["AQ", "AAB", "ASB", "BLU", "BEE", "CCC", "DAC", "DH", "DIS1", "DIS2", "EDB", "FM", "GH", "HC", "LDC", "MBC", "RCB", "RBC", "SWH", "SCB", "SCC", "SCK", "SCP", "SECB", "SSB", "SRA", "SH", "SHA", "T3", "TASC 1", "TASC 2", "TC", "TH", "LIB", "WMC", "WTB", "C900"],
+    "rgb(255, 158, 158)":  ["SUR"],
+    "rgb(152, 204, 255)": ["HCC"],
+  }
+
   var _parseCourseCart = function (data) {
 
     // return value
@@ -123,6 +130,7 @@ var Parser = (function () {
   return {
     parse: parse,
     CLASS_STATUS_CODES: CLASS_STATUS_CODES,
+    CAMPUS_MAP_COLORS: CAMPUS_MAP_COLORS,
   };
 
 })();
@@ -170,6 +178,14 @@ var Tools = (function () {
       }
     }
     return trimmedData
+  }
+
+
+  /**
+   * - Trims a string, removing any whitespaces from it
+   */
+  var trimString = function (str) {
+    return str.replace(/\s+/g, '');
   }
 
 
@@ -244,6 +260,7 @@ var Tools = (function () {
     mapWeekDayToCalDate: mapWeekDayToCalDate,
     isMobile: isMobile,
     isBlank: isBlank,
+    trimString: trimString,
     WEEK_DAYS: WEEK_DAYS,
   };
 

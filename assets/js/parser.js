@@ -3,6 +3,15 @@
  */
 var Parser = (function () {
 
+  // status codes of courses after enrollment
+  const _AFTER_CLASS_STATUS_CODES = ["Enrolled", "Dropped", "Wait Listed"]
+
+  const _AFTER_CLASS_CODES_MAPPING = {
+    "Enrolled": "Open",
+    "Dropped": "Closed",
+    "Wait Listed": "Wait List",
+  }
+
   // different class statuses
   const CLASS_STATUS_CODES = {
     "Open": "#16d016",
@@ -128,8 +137,28 @@ var Parser = (function () {
   var parse = function (rawdata) {
     var splitByLine = rawdata.split("\n")
 
-    // TODO: header checks to decide how data will be parsed,
+    // header checks to decide how data will be parsed,
     // when getting data from multiple places
+
+    /** Next term schedule table
+     * - Doesn't containt the delete button
+     * - Class status is either [ Enrolled, Dropped, Wait Listed ]
+     */
+    if (Tools.isSubset(splitByLine, _AFTER_CLASS_STATUS_CODES)) {
+      // clean up data
+      var indicies_to_remove = []
+      for (i = 0; i < splitByLine.length; i+=8)
+        indicies_to_remove.push(i + 2);
+
+      for (i = indicies_to_remove.length - 1; i >= 0; i--)
+        splitByLine.splice(indicies_to_remove[i],1);
+
+      // replace enrollment statuses with pre-enrollment statuses
+      for (i=0; i<splitByLine.length; i++) {
+        if (~_AFTER_CLASS_STATUS_CODES.indexOf(splitByLine[i]))
+          splitByLine[i] = _AFTER_CLASS_CODES_MAPPING[splitByLine[i]]
+      }
+    }
 
     return _parseCourseCart(splitByLine)
   }
@@ -257,6 +286,21 @@ var Tools = (function () {
     return false;
   }
 
+  /**
+   * Returns true if an element from setA is in setB
+   */
+  var isSubset = function (setA, setB) {
+    for (i = 0; i < setA.length; i++) {
+      for (j=0; j < setB.length; j++) {
+        if (setA[i] == setB[j]) {
+          return true
+        }
+      }
+    }
+
+    return false
+  }
+
 
   /**
    * Return functions that will be publicly accessible
@@ -269,6 +313,7 @@ var Tools = (function () {
     isMobile: isMobile,
     isBlank: isBlank,
     trimString: trimString,
+    isSubset: isSubset,
     WEEK_DAYS: WEEK_DAYS,
   };
 

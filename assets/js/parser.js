@@ -11,10 +11,17 @@ var Parser = (function () {
   }
 
   // classroom codes matching the campus
-  const CAMPUS_MAP_COLORS = {
-    "rgb(130, 215, 134)": ["AQ", "AAB", "ASB", "BLU", "BEE", "CCC", "DAC", "DH", "DIS1", "DIS2", "EDB", "FM", "GH", "HC", "LDC", "MBC", "RCB", "RBC", "SWH", "SCB", "SCC", "SCK", "SCP", "SECB", "SSB", "SRA", "SH", "SHA", "T3", "TASC 1", "TASC 2", "TC", "TH", "LIB", "WMC", "WTB", "C900"],
-    "rgb(255, 158, 158)":  ["SUR"],
-    "rgb(109, 183, 255)": ["HCC"],
+  const CLASS_CAMPUS = {
+    "BUR": ["AQ", "AAB", "ASB", "BLU", "BEE", "CCC", "DAC", "DH", "DIS1", "DIS2", "EDB", "FM", "GH", "HC", "LDC", "MBC", "RCB", "RBC", "SWH", "SCB", "SCC", "SCK", "SCP", "SECB", "SSB", "SRA", "SH", "SHA", "T3", "TASC 1", "TASC 2", "TC", "TH", "LIB", "WMC", "WTB", "C900"],
+    "SUR":  ["SUR"],
+    "HBC": ["HCC"],
+  }
+
+  // campus colors
+  const CAMPUS_COLORS = {
+    "BUR" : "rgb(130, 215, 134)",
+    "SUR" : "rgb(255, 158, 158)",
+    "HBC" : "rgb(109, 183, 255)",
   }
 
   var _parseCourseCart = function (data) {
@@ -130,7 +137,8 @@ var Parser = (function () {
   return {
     parse: parse,
     CLASS_STATUS_CODES: CLASS_STATUS_CODES,
-    CAMPUS_MAP_COLORS: CAMPUS_MAP_COLORS,
+    CLASS_CAMPUS: CLASS_CAMPUS,
+    CAMPUS_COLORS : CAMPUS_COLORS,
   };
 
 })();

@@ -53,7 +53,7 @@ $(document).ready(function () {
   });
 
 
-  function addNewEvent(eventTitle, startT, endT, color, classStatus){
+  function addNewEvent(eventTitle, startT, endT, color, classStatus, class_campus){
 
     var newEvent = new Object();
     newEvent.title = eventTitle;
@@ -63,7 +63,7 @@ $(document).ready(function () {
     newEvent.backgroundColor = "#fff";
     newEvent.borderColor = color;
     newEvent.textColor = "rgb(13, 103, 65)"
-    newEvent.className = classStatus
+    newEvent.className = classStatus + " " + class_campus
 
     $('#calendar').fullCalendar('renderEvent', newEvent);
   }
@@ -81,19 +81,21 @@ $(document).ready(function () {
 
         Tools.mapWeekDayToCalDate(time['weekDays']).forEach(function (date, i) {
           // ** background color == campus color
-          var class_campus_color = 'rgb(231, 231, 231)';
-          for (key in Parser.CAMPUS_MAP_COLORS) {
+          var class_campus_color = 'rgb(231, 231, 231)'; // no campus color == a shade of gray
+          var class_campus = 'na';
+          for (key in Parser.CAMPUS_COLORS) {
 
-            Parser.CAMPUS_MAP_COLORS[key].forEach(function (val, index) {
+            Parser.CLASS_CAMPUS[key].forEach(function (val, index) {
               if (eachClass['class_room'].indexOf(val) > -1) {
-                class_campus_color = key
+                class_campus_color = Parser.CAMPUS_COLORS[key]
+                class_campus = key
               }
             });
           }
 
           var class_status = "class-status "+Tools.trimString(eachClass['class_status'].toString().toLowerCase());
 
-          addNewEvent(title, date+"T"+startTime, date+"T"+endTime, class_campus_color, class_status);
+          addNewEvent(title, date+"T"+startTime, date+"T"+endTime, class_campus_color, class_status, class_campus.toString().toLowerCase());
         });
       })
     })

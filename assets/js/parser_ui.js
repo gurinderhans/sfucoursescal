@@ -32,8 +32,6 @@ $(document).ready(function () {
 
     // must wait for textbox to fill up
     setTimeout(function () {
-      // clean previous data
-      $("#calendar").fullCalendar('removeEvents');
       // add new data
       addCalendarData($("#courses-text").val());
 

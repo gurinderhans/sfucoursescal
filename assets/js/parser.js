@@ -22,7 +22,7 @@ var Parser = (function () {
   // classroom codes matching the campus
   const CLASS_CAMPUS = {
     "BUR": ["AQ", "AAB", "ASB", "BLU", "BEE", "CCC", "DAC", "DH", "DIS1", "DIS2", "EDB", "FM", "GH", "HC", "LDC", "MBC", "RCB", "RBC", "SWH", "SCB", "SCC", "SCK", "SCP", "SECB", "SSB", "SRA", "SH", "SHA", "T3", "TASC 1", "TASC 2", "TC", "TH", "LIB", "WMC", "WTB", "C900", "B9", "P9", "K9"],
-    "SUR":  ["SUR"],
+    "SUR":  ["SUR", "SRY", "SRYE"],
     "HBC": ["HCC"],
   }
 
